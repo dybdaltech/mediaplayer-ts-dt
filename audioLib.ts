@@ -14,6 +14,7 @@ export class AudioPlayer {
      */
     private audioBtn: any = document.getElementById("audiobtn");
     private mediaControls: any = document.getElementById("mediacontrol");
+    private trackDisplay: any = document.getElementById("trackdisplay");
     public mediaList: string[] = [];
     private audio: any;
     public eventEmitter: any;
@@ -29,7 +30,6 @@ export class AudioPlayer {
         nextBtn.innerHTML = ">>";
         prevBtn.innerHTML = "<<";
         this.audioBtn.addEventListener('click', (e:Event) => this.startStop())
-        this.audio.addEventListener('playing', (e:Event) => this.isPlaying());
         nextBtn.addEventListener('click', (e:Event) => this.loadNext())
         prevBtn.addEventListener('click', (e:Event) => this.loadPrevious())
         console.log(this.audioBtn);
@@ -39,6 +39,8 @@ export class AudioPlayer {
         }
         this.audio = new Audio();
         this.audio.setAttribute('src', this.mediaList[this.index]);
+        
+        this.audio.addEventListener('playing', (e:Event) => this.isPlaying());
     }
     private isPlaying() {
         return true;
@@ -63,6 +65,7 @@ export class AudioPlayer {
 
     public startStop() {
         console.log("Playing: " + this.mediaList[this.index])
+        this.trackDisplay.innerHTML = "Playing: " + this.mediaList[this.index]
         if(this.isPlaying()){
             this.audio.pause()
             this.audio.setAttribute('src', this.mediaList[this.index]);
@@ -74,22 +77,9 @@ export class AudioPlayer {
 
 }
 
-
-/*
-Testing of the class below
-*/
-// npx tsc
-
-//let medias = [
-//    {id: 1, path: "./assets/audio/01. The Fall of Oriath (Main Theme).mp3"},
-//    {id: 2, path: "./assets/audio/02. Lioneye’s Watch.mp3"},
-//    {id: 3, path: "./assets/audio/03. Coast.mp3"}
-//]
 let medias = [
     "./assets/audio/01. The Fall of Oriath (Main Theme).mp3",
     "./assets/audio/02. Lioneye’s Watch.mp3",
     "./assets/audio/03. Coast.mp3"
 ]
 const audioPlayer = new AudioPlayer(medias);
-
-

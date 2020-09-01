@@ -18,6 +18,7 @@ var AudioPlayer = /** @class */ (function () {
          */
         this.audioBtn = document.getElementById("audiobtn");
         this.mediaControls = document.getElementById("mediacontrol");
+        this.trackDisplay = document.getElementById("trackdisplay");
         this.mediaList = [];
         this.index = 0;
         //Create next/prev buttons
@@ -28,6 +29,7 @@ var AudioPlayer = /** @class */ (function () {
         nextBtn.innerHTML = ">>";
         prevBtn.innerHTML = "<<";
         this.audioBtn.addEventListener('click', function (e) { return _this.startStop(); });
+        
         nextBtn.addEventListener('click', function (e) { return _this.loadNext(); });
         prevBtn.addEventListener('click', function (e) { return _this.loadPrevious(); });
         console.log(this.audioBtn);
@@ -39,7 +41,6 @@ var AudioPlayer = /** @class */ (function () {
         this.audio = new Audio();
         this.audio.setAttribute('src', this.mediaList[this.index]);
         this.audio.addEventListener('playing', function (e) { return _this.isPlaying(); });
-
     }
     AudioPlayer.prototype.isPlaying = function () {
         return true;
@@ -61,6 +62,7 @@ var AudioPlayer = /** @class */ (function () {
     };
     AudioPlayer.prototype.startStop = function () {
         console.log("Playing: " + this.mediaList[this.index]);
+        this.trackDisplay.innerHTML = "Playing: " + this.mediaList[this.index];
         if (this.isPlaying()) {
             this.audio.pause();
             this.audio.setAttribute('src', this.mediaList[this.index]);
@@ -73,15 +75,6 @@ var AudioPlayer = /** @class */ (function () {
     return AudioPlayer;
 }());
 exports.AudioPlayer = AudioPlayer;
-/*
-Testing of the class below
-*/
-// npx tsc
-//let medias = [
-//    {id: 1, path: "./assets/audio/01. The Fall of Oriath (Main Theme).mp3"},
-//    {id: 2, path: "./assets/audio/02. Lioneye’s Watch.mp3"},
-//    {id: 3, path: "./assets/audio/03. Coast.mp3"}
-//]
 var medias = [
     "./assets/audio/01. The Fall of Oriath (Main Theme).mp3",
     "./assets/audio/02. Lioneye’s Watch.mp3",
